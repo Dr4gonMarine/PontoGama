@@ -2,29 +2,47 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:Ponto.ViewModels"
+             NavigationPage.HasNavigationBar="False"
              x:Class="Ponto.Views.Login">
 
     <ContentPage.BindingContext>
         <views:LoginViewModel/>
     </ContentPage.BindingContext>
-    
+
     <ContentPage.Content>
-        <Grid RowDefinitions="40*, 80*">
+        <!--Gradiente de fundo-->
+        <Grid RowDefinitions="40*, 60*">
             <Grid.Background>
-                <LinearGradientBrush StartPoint="1,1"
+                <LinearGradientBrush StartPoint="0,1"
                              EndPoint="0,0">
                     <GradientStop Color="White"
-                          Offset="0.1"/>
+                          Offset="0.2"/>
                     <GradientStop Color="CadetBlue"
                           Offset="1.0"/>
                 </LinearGradientBrush>
             </Grid.Background>
-
+            
+            <!--"frame" branco-->
             <BoxView CornerRadius="30,30,0,0" Grid.Row="1" BackgroundColor="White" Margin="20,0,20,0"/>
 
-            <Grid Grid.Row="1" RowDefinitions="auto, auto, auto, auto, auto, auto, auto" ColumnDefinitions="40,*,40">
-                <Label Text="Bem Vindo" FontSize="40" TextColor="Black" Grid.Column="1" HorizontalTextAlignment="Center"/>
-                <Label Text="Seja bem vindo a plataforma da Gama!" FontSize="15" TextColor="Black" Grid.Column="1" Grid.Row="1" HorizontalTextAlignment="Center"/>
+            <Grid Grid.Row="1" RowDefinitions="auto" ColumnDefinitions="40,*,40">
+                <StackLayout Grid.Row="1" Grid.Column="1">
+                    <Label Text="Bem Vindo" FontSize="40" HorizontalTextAlignment="Center"/>
+                    <Label Text="Seja bem vindo a plataforma da Gama!" FontFamily="MontserratLight" FontSize="15" HorizontalTextAlignment="Center"/>
+                    <BoxView HeightRequest="1" BackgroundColor="Gray"/>
+                    <Frame Padding="0" CornerRadius="20" Margin="0,30,0,10">
+                        <Entry Placeholder="E-mail"/>
+                    </Frame>
+                    <Frame Padding="0" CornerRadius="20">
+                        <Entry IsPassword="True" Placeholder="Senha"/>
+                    </Frame>
+                    <Label Text="Cadastre-se" TextDecorations="Underline" TextColor="blue" HorizontalOptions="End">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CadastrarCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Button Text="Entrar" VerticalOptions="EndAndExpand" Margin="0,0,0,30" Command="{Binding LoginCommand}"/>
+                </StackLayout>
             </Grid>
         </Grid>
     </ContentPage.Content>

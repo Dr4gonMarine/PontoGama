@@ -4,5 +4,21 @@
              x:Class="Ponto.App">
     <Application.Resources>
 
+        <Style TargetType="Label" >
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontFamily" Value="MontserratRegular"/>
+        </Style>
+
+        <Style TargetType="Entry">
+            <Setter Property="PlaceholderColor" Value="Black"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontFamily" Value="MontserratLight"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="CadetBlue"/>
+            <Setter Property="TextColor" Value="White"/>
+        </Style>
+        
     </Application.Resources>
 </Application>

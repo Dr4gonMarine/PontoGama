@@ -58,6 +58,7 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\DatabasePath.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,6 +77,10 @@
     <AndroidResource Include="Resources\drawable\launcher_background.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Ponto.Base\Ponto.Base\Ponto.Base.csproj">
+      <Project>{AA19E746-DA96-4908-97FD-6DF55AB40FA5}</Project>
+      <Name>Ponto.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ponto\Ponto.csproj">
       <Project>{3959BE43-D9F8-4BF6-BCB2-01009706F961}</Project>
       <Name>Ponto</Name>

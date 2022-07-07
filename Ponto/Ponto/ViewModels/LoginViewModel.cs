@@ -10,9 +10,10 @@ namespace Ponto.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-        private INavigation _navigation;
-        private UserRepository _usuarioRepository;
+        #region Propriedades
+        public INavigation Navigation { get; set; }
 
+        private readonly UserRepository _usuarioRepository;
 
         private string _email;
 
@@ -28,8 +29,8 @@ namespace Ponto.ViewModels
         {
             get { return _senha; }
             set { _senha = value; OnPropertyChanged("Senha"); }
-        }    
-
+        }
+        #endregion
 
         #region -> Command <-
         private Command _LoginCommand;
@@ -41,15 +42,35 @@ namespace Ponto.ViewModels
 
         #region -> Métodos <-
         private async Task Cadastrar()
-        {            
-            _usuarioRepository.InsertUser(_email, _senha); 
+        {
+            await Navigation.PushModalAsync(new Cadastro());            
         }
         private async Task ValidaLogin()
-        {  
-          var usuario = _usuarioRepository.GetByEmail(_email);
-          await Task.Delay(200);
-          if(usuario != null)
-            Application.Current.MainPage = new NavigationPage(new Home());
+        {
+            try
+            {
+                var usuario = _usuarioRepository.GetByEmail(Email);                
+                if (usuario != null)
+                {
+                    if(usuario.Senha == Senha)
+                    {
+                        Application.Current.MainPage = new NavigationPage(new Home());
+                    }
+                    else
+                    {
+                        await App.Current.MainPage.DisplayAlert("Ops", "Senha Incorreta", "OK");
+                    }
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("Ops", "Usuário não encontrado", "OK");
+                }
+            
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Ops", ex.Message, "OK");
+            }
 
         }
         #endregion

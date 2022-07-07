@@ -28,11 +28,11 @@ namespace Ponto.Base.Data.Repository
             }
         }
 
-        public void InsertUser(string email, string senha)
+        public void InsertUser(string nome, string email, string senha)
         {
             try
             {
-                var user = new User() { Email = email, Senha = senha, Id = new Guid() };
+                var user = new User() { Id_User = Guid.NewGuid(), Nome = nome, Email = email, Senha = senha};
                 _dbContext.Conexao.Insert(user);
             }catch(Exception ex)
             {

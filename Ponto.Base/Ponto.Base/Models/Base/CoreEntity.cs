@@ -16,11 +16,7 @@ namespace Ponto.Base.Models.Base
         /// <summary>
         /// Codigo externo do registro (vindo de integrações)
         /// </summary>
-        public string CodigoExterno { get; set; }
 
-        /// <summary>
-        /// Data de inclusão do registro
-        /// </summary>
         public DateTime? Alteracao { get; set; }
 
         /// <summary>

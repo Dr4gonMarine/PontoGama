@@ -1,4 +1,5 @@
 ﻿using Ponto.Base.Data.Repository;
+using Ponto.Base.Models;
 using Ponto.Views;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace Ponto.ViewModels
         #region -> Métodos <-
         private async Task Cadastrar()
         {
-            await Navigation.PushModalAsync(new Cadastro());            
+            await Navigation.PushModalAsync(new Cadastro(),false);            
         }
         private async Task ValidaLogin()
         {
@@ -54,7 +55,7 @@ namespace Ponto.ViewModels
                 {
                     if(usuario.Senha == Senha)
                     {
-                        Application.Current.MainPage = new NavigationPage(new Home());
+                        Application.Current.MainPage = new NavigationPage(new Home(usuario));
                     }
                     else
                     {

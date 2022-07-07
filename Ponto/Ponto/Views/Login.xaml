@@ -21,7 +21,11 @@
                           Offset="1.0"/>
                 </LinearGradientBrush>
             </Grid.Background>
-            
+
+
+            <Image Source="ic_launcher.png" />
+
+
             <!--"frame" branco-->
             <BoxView CornerRadius="30,30,0,0" Grid.Row="1" BackgroundColor="White" Margin="20,0,20,0"/>
 
@@ -34,7 +38,7 @@
                         <Entry Text="{Binding Email}" Placeholder="E-mail"/>
                     </Frame>
                     <Frame Padding="0" CornerRadius="20">
-                        <Entry Text="{Binding Senha}" IsPassword="True" Placeholder="Senha"/>
+                        <Entry Text="{Binding Senha}" IsPassword="True" Placeholder="Senha" />
                     </Frame>
                     <Label Text="Cadastre-se" TextDecorations="Underline" TextColor="blue" HorizontalOptions="End">
                         <Label.GestureRecognizers>

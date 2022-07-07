@@ -2,24 +2,22 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using SQLite;
 
 namespace Ponto.Base.Models
 {
-    [SQLite.Table("USER")]
+    [Table("USER")]
     public class User : CoreEntity
-    {
-        [SQLite.Column("ID_USER")]        
-        public Guid Id_User { get; set; }
-
-        [SQLite.Column("NOME_USER")]
+    {       
+        [Column("NOME_USER")]
         public string Nome { get; set; }
 
-        [SQLite.Column("EMAIL_USER")]
-        [SQLite.MaxLength(150)]
+        [Column("EMAIL_USER")]
+        [MaxLength(150)]
         public string Email { get; set; }
 
-        [SQLite.Column("SENHA_USER")]
-        [SQLite.MaxLength(20)]
+        [Column("SENHA_USER")]
+        [MaxLength(20)]
         public string Senha { get; set; }
     }
 }

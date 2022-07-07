@@ -2,10 +2,16 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              NavigationPage.HasNavigationBar="False"
+             xmlns:views="clr-namespace:Ponto.ViewModels"
              x:Class="Ponto.Views.Home">
+
+    <ContentPage.BindingContext>
+        <views:HomeViewModel/>
+    </ContentPage.BindingContext>
+    
     <ContentPage.Content>
         <!--Gradiente de fundo-->
-        <Grid RowDefinitions="20*, 80*">
+        <Grid RowDefinitions="22*, 78*">
             <Grid.Background>
                 <LinearGradientBrush StartPoint="0,1"
                              EndPoint="0,0">
@@ -18,7 +24,18 @@
 
             <!--Frame Saldo-->
             <Frame Margin="20" CornerRadius="30">
-                <Label Text="Saldo"/>
+                <StackLayout>
+                    <Label >
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Seja Bem vindo "/>
+                                <Span Text="{Binding Nome}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <BoxView Color="Gray" HeightRequest="1"/>
+                    
+                </StackLayout>
             </Frame>
 
             <!--"frame" branco-->

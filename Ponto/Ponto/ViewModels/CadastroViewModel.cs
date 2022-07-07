@@ -36,7 +36,7 @@ namespace Ponto.ViewModels
         public string Nome
         {
             get { return _nome; }
-            set { _nome = value; OnPropertyChanged("Nome"); }
+            set { _nome = value.ToUpper(); OnPropertyChanged("Nome"); }
         }
 
         #endregion

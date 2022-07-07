@@ -32,7 +32,7 @@ namespace Ponto.Base.Data.Repository
         {
             try
             {
-                var user = new User() { Id_User = Guid.NewGuid(), Nome = nome, Email = email, Senha = senha};
+                User user = new User() { Nome = nome, Email = email, Senha = senha};
                 _dbContext.Conexao.Insert(user);
             }catch(Exception ex)
             {

@@ -31,10 +31,10 @@
                     <Label Text="Seja bem vindo a plataforma da Gama!" FontFamily="MontserratLight" FontSize="15" HorizontalTextAlignment="Center"/>
                     <BoxView HeightRequest="1" BackgroundColor="Gray"/>
                     <Frame Padding="0" CornerRadius="20" Margin="0,30,0,10">
-                        <Entry Placeholder="E-mail"/>
+                        <Entry Text="{Binding Email}" Placeholder="E-mail"/>
                     </Frame>
                     <Frame Padding="0" CornerRadius="20">
-                        <Entry IsPassword="True" Placeholder="Senha"/>
+                        <Entry Text="{Binding Senha}" IsPassword="True" Placeholder="Senha"/>
                     </Frame>
                     <Label Text="Cadastre-se" TextDecorations="Underline" TextColor="blue" HorizontalOptions="End">
                         <Label.GestureRecognizers>

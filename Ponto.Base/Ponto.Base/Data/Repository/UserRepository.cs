@@ -19,9 +19,21 @@ namespace Ponto.Base.Data.Repository
         {
             try
             {
-                var user = _dbContext.Conexao.FindWithQuery<User>("SELECT * FROM USER WHERE ST_EMAILUSER = ?", email);
+                var user = _dbContext.Conexao.FindWithQuery<User>("SELECT * FROM USER WHERE EMAIL_USER = ?", email);
 
                 return user;
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public void InsertUser(string email, string senha)
+        {
+            try
+            {
+                var user = new User() { Email = email, Senha = senha, Id = new Guid() };
+                _dbContext.Conexao.Insert(user);
             }catch(Exception ex)
             {
                 throw new Exception(ex.Message);

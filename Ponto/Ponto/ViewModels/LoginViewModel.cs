@@ -37,19 +37,20 @@ namespace Ponto.ViewModels
 
         private Command _CadastrarCommand;
         public Command CadastrarCommand => _CadastrarCommand ?? (_CadastrarCommand = new Command(async () => await Cadastrar()));
-
         #endregion
 
         #region -> Métodos <-
         private async Task Cadastrar()
         {            
-            //await _navigation.PushModalAsync(new Cadastro());
+            _usuarioRepository.InsertUser(_email, _senha); 
         }
         private async Task ValidaLogin()
         {  
           var usuario = _usuarioRepository.GetByEmail(_email);
           await Task.Delay(200);
-          Application.Current.MainPage = new NavigationPage(new Home());
+          if(usuario != null)
+            Application.Current.MainPage = new NavigationPage(new Home());
+
         }
         #endregion
 

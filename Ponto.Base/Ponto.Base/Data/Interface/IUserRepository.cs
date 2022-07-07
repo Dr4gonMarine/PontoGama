@@ -10,5 +10,6 @@ namespace Ponto.Base.Data.Interface
     {
         User GetByEmail(string email);       
         
+        void InsertUser(string email, string senha);
     }
 }

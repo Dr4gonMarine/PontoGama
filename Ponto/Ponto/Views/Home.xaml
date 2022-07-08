@@ -62,7 +62,7 @@
                             <!--</DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>-->
-                    <Button Text="Ponto" VerticalOptions="End"/>
+                    <Button Text="Ponto" Command="{Binding RegistrarPonto}" VerticalOptions="End"/>
                 </StackLayout>
             </Grid>
         </Grid>

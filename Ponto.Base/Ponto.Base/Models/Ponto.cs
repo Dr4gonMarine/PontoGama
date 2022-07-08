@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using Ponto.Base.Models.Base;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Text;
 namespace Ponto.Base.Models
 {
     [Table("PONTO")]
-    public class Ponto
+    public class Ponto : CoreEntity
     {
         [Column("HR_INICIO")]
         public DateTime HrInicio { get; set; }

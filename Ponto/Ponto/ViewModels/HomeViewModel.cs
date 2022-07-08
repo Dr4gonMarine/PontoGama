@@ -14,8 +14,7 @@ namespace Ponto.ViewModels
         #region ->Propriedades<-
 
         public INavigation Navigation { get; set; }
-
-        private UserRepository _usuarioRepository;
+        
         
         public User usuario { get; set; }
 
@@ -33,6 +32,8 @@ namespace Ponto.ViewModels
 
         private Command _RegistrarPontoCommand;
         public Command RegistrarPonto => _RegistrarPontoCommand ?? (_RegistrarPontoCommand = new Command(async () => await Registrar()));
+
+
         #endregion
 
         #region -> Métodos <-
@@ -44,8 +45,7 @@ namespace Ponto.ViewModels
         #endregion
 
         public HomeViewModel()
-        {
-            _usuarioRepository = new UserRepository();           
+        {                       
         }
     }
 }

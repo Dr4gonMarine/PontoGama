@@ -22,7 +22,7 @@ namespace Ponto.Base.Models.Base
         /// <summary>
         /// Data de inclusão do registro
         /// </summary>
-        public DateTime Inclusao { get; set; } = DateTime.Now;
+        public DateTime Inclusao { get; set; } = DateTime.Now.Date;
 
         /// <summary>
         /// Flag de ativo

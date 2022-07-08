@@ -42,7 +42,7 @@ namespace Ponto.Base.Data.Repository
         {
             try
             {
-                var lastPonto = _dbContext.Conexao.FindWithQuery<Models.Ponto>("SELECT * FROM PONTO WHERE HR_FINAL IS NULL AND HR_INICIO IS NOT NULL AND ID_USER = ? AND Inclusao = ?", IdUser, DateTime.Now);
+                var lastPonto = _dbContext.Conexao.FindWithQuery<Models.Ponto>("SELECT * FROM PONTO WHERE HR_FINAL IS NULL AND HR_INICIO IS NOT NULL AND ID_USER = ? AND Inclusao = ?", IdUser, DateTime.Now.Date);
                 
                 if(lastPonto != null)
                 {

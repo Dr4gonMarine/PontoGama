@@ -45,10 +45,12 @@ namespace Ponto.ViewModels
                 if (lastPonto == null)
                 {
                     _PontoRepository.InsertPontoHrInicial(HoraAtual, usuario.Id);
+                    await App.Current.MainPage.DisplayAlert("Registrado", "Horário inicial registrado", "OK");
                 }
                 else
                 {
                     _PontoRepository.InsertPontoHrFinal(HoraAtual, usuario.Id);
+                    await App.Current.MainPage.DisplayAlert("Registrado", "Horário final registrado", "OK");
                 }                               
             }
             catch (Exception ex)

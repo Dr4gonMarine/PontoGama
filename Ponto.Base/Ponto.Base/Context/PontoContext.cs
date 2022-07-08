@@ -30,6 +30,7 @@ namespace Ponto.Base.Context
             _sqliteConnection = new SQLiteConnection(DependencyService.Get<IDBPath>().GetDbPath());
             _sqliteConnection.CreateTable<User>();
             _sqliteConnection.CreateTable<Models.Ponto>();
+            _sqliteConnection.CreateTable<Relatorio>();
         }
 
         public SQLiteConnection Conexao

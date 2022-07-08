@@ -8,8 +8,8 @@ namespace Ponto.Base.Data.Interface
 {
     public interface IPontoRepository: ICoreRepository<Models.Ponto>
     {
-        void InsertPontoHrInicial(DateTime HoraAtual, Guid IdUser);       
-        void InsertPontoHrFinal(DateTime HoraAtual, Guid IdUser);
+        void InsertPontoHrInicial(DateTime HoraAtual, Guid IdUser, Guid IdRelatorio);       
+        void InsertPontoHrFinal(DateTime HoraAtual, Guid IdUser, Models.Ponto lastPonto);
         Models.Ponto GetLastPonto(Guid IdUser);
     }
 }

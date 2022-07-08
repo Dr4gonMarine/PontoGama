@@ -20,7 +20,7 @@ namespace Ponto.Base.Models.Base
         public DateTime? Alteracao { get; set; }
 
         /// <summary>
-        /// Data de inclusão do registro
+        /// Data de inclusão, sendo utilizada para definição dos dias do ponto
         /// </summary>
         public DateTime Inclusao { get; set; } = DateTime.Now.Date;
 

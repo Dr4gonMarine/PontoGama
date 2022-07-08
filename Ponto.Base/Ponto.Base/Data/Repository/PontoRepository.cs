@@ -14,11 +14,12 @@ namespace Ponto.Base.Data.Repository
             DbContext = PontoContext.Current;
         }        
 
-        public void InsertPontoHrInicial(DateTime HoraAtual, Guid IdUser)
+        public void InsertPontoHrInicial(DateTime HoraAtual, Guid IdUser, Guid IdRelatorio)
         {
             try
             {
-                Models.Ponto ponto = new Models.Ponto() { HrInicio = HoraAtual, IdUser = IdUser};
+
+                Models.Ponto ponto = new Models.Ponto() { HrInicio = HoraAtual, IdUser = IdUser, IdRelatorio = IdRelatorio};//criando o ponto
                 _dbContext.Conexao.Insert(ponto);
             }
             catch (Exception ex)
@@ -26,11 +27,12 @@ namespace Ponto.Base.Data.Repository
                 throw new Exception(ex.Message);
             }
         }
-        public void InsertPontoHrFinal(DateTime HoraAtual, Guid IdUser)
+        public void InsertPontoHrFinal(DateTime HoraAtual, Guid IdUser, Models.Ponto lastPonto)
         {
             try
             {
-                _dbContext.Conexao.Query<Models.Ponto>("UPDATE PONTO SET HR_FINAL = ? WHERE ID_USER = ?", HoraAtual,IdUser);
+                var saldo = lastPonto.HrInicio - HoraAtual;
+                _dbContext.Conexao.Query<Models.Ponto>("UPDATE PONTO SET HR_FINAL = ?, PO_SALDO = ? WHERE ID_USER = ?", HoraAtual, saldo, IdUser);
             }
             catch (Exception ex)
             {

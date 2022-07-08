@@ -13,6 +13,7 @@ namespace Ponto.ViewModels
         #region ->Propriedades<-
         public INavigation Navigation;
         private PontoRepository _PontoRepository;
+        private RelatorioRepository _RelatorioRepository;
 
         public User usuario;
 
@@ -41,15 +42,23 @@ namespace Ponto.ViewModels
                 HoraAtual = DateTime.Now;
 
                 var lastPonto = _PontoRepository.GetLastPonto(usuario.Id);
+                var relatorioAtual = _RelatorioRepository.GetRelatorioAtual();
 
+                if(relatorioAtual == null)
+                {
+                    _RelatorioRepository.InserirIdUsuario(usuario.Id);
+                }
+
+
+                //Validação se ponto de entrada ou saida
                 if (lastPonto == null)
                 {
-                    _PontoRepository.InsertPontoHrInicial(HoraAtual, usuario.Id);
+                    _PontoRepository.InsertPontoHrInicial(HoraAtual, usuario.Id, relatorioAtual.Id);
                     await App.Current.MainPage.DisplayAlert("Registrado", "Horário inicial registrado", "OK");
                 }
                 else
                 {
-                    _PontoRepository.InsertPontoHrFinal(HoraAtual, usuario.Id);
+                    _PontoRepository.InsertPontoHrFinal(HoraAtual, usuario.Id, lastPonto);
                     await App.Current.MainPage.DisplayAlert("Registrado", "Horário final registrado", "OK");
                 }                               
             }
@@ -64,6 +73,7 @@ namespace Ponto.ViewModels
         public RegistrarPontoViewModel()
         {
             _PontoRepository = new PontoRepository();
+            _RelatorioRepository = new RelatorioRepository();
             HrAtual = DateTime.Now.ToShortTimeString();
         }
     }

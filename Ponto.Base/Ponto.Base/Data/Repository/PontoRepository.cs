@@ -27,12 +27,24 @@ namespace Ponto.Base.Data.Repository
                 throw new Exception(ex.Message);
             }
         }
-        public void InsertPontoHrFinal(DateTime HoraAtual, Guid IdUser, Models.Ponto lastPonto)
+        public void InsertPontoHrFinal(DateTime HoraAtual, Models.Ponto lastPonto)
         {
             try
             {
-                var saldo = lastPonto.HrInicio - HoraAtual;
-                _dbContext.Conexao.Query<Models.Ponto>("UPDATE PONTO SET HR_FINAL = ?, PO_SALDO = ? WHERE ID_USER = ?", HoraAtual, saldo, IdUser);
+                var Jornada = lastPonto.HrInicio - HoraAtual;
+                _dbContext.Conexao.Query<Models.Ponto>("UPDATE PONTO SET HR_FINAL = ?, HR_JORNADA = ? WHERE ID_USER = ?", HoraAtual, Jornada, lastPonto.IdUser);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<Models.Ponto> GetPontosDoDia(Guid IdUser, DateTime Data)
+        {
+            try
+            {                
+               return _dbContext.Conexao.Query<Models.Ponto>("SELECT * FROM PONTO WHERE ID_USER = ? AND Inclusao = ?", IdUser, Data);
             }
             catch (Exception ex)
             {

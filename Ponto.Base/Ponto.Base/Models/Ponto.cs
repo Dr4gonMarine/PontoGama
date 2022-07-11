@@ -15,8 +15,8 @@ namespace Ponto.Base.Models
         [Column("HR_FINAL")]
         public DateTime? HrFinal{ get; set; }
 
-        [Column("PO_SALDO")]
-        public TimeSpan? Saldo { get; set; }
+        [Column("HR_JORNADA")]
+        public TimeSpan? HrJornada { get; set; }
 
         [Column("ID_USER")]
         public Guid IdUser { get; set; }

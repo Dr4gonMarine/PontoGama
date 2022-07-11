@@ -1,4 +1,5 @@
-﻿using Ponto.Base.Models;
+﻿using Ponto.Base.Data.Repository;
+using Ponto.Base.Models;
 using Ponto.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,7 @@ namespace Ponto.Views
     public partial class Home : ContentPage
     {
 
-        HomeViewModel _HomeViewModel;
-
+        HomeViewModel _HomeViewModel;        
 
         public Home(User usuario)
         {
@@ -25,6 +25,20 @@ namespace Ponto.Views
             _HomeViewModel.Nome = usuario.Nome;
             _HomeViewModel.Navigation = Navigation;
             _HomeViewModel.usuario = usuario;
+        }
+
+        protected override void OnAppearing()
+        {
+            try
+            {
+                base.OnAppearing();
+                _HomeViewModel.CarregaDados();
+            }
+            catch (Exception ex)
+            {
+                App.Current.MainPage.DisplayAlert("Atenção", ex.Message, "OK");
+            }
+
         }
     }
 }

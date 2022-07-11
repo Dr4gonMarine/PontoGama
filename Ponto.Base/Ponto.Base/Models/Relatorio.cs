@@ -10,10 +10,10 @@ namespace Ponto.Base.Models
     public class Relatorio : CoreEntity
     {        
         [Column("HR_JORNADA")]
-        public DateTime HrJornada { get; set; }
+        public TimeSpan? HrJornada { get; set; }
 
-        [Column("RE_SALDO")]
-        public TimeSpan? HrFinal { get; set; }       
+        [Column("SALDO")]
+        public TimeSpan? Saldo { get; set; }       
 
         [Column("ID_USER")]
         public Guid IdUser { get; set; }

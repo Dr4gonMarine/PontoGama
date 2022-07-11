@@ -13,6 +13,32 @@ namespace Ponto.Base.Data.Repository
         public RelatorioRepository()
         {
             DbContext = PontoContext.Current;
+        }       
+
+        public void AtualizaHrJornada(TimeSpan? HrJornada, Guid IdRelatorio)
+        {
+            try
+            {                
+                _dbContext.Conexao.Query<Relatorio>("UPDATE RELATORIO SET HR_JORNADA = ? WHERE Id = ?", HrJornada, IdRelatorio);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<Relatorio> GetAllRelatorios(Guid IdUser)
+        {
+            try
+            {
+                return _dbContext.Conexao.Query<Relatorio>("SELECT * FROM RELATORIO WHERE ID_USER = ?", IdUser);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
 
         public Relatorio GetRelatorioAtual()

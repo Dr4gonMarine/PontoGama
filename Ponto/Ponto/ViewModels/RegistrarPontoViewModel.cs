@@ -12,16 +12,17 @@ namespace Ponto.ViewModels
     {
         #region ->Propriedades<-
         public INavigation Navigation;
-        private PontoRepository _PontoRepository;
-        private RelatorioRepository _RelatorioRepository;
+        private PontoRepository _pontoRepository;
+        private RelatorioRepository _relatorioRepository;
 
         public User usuario;
 
         private DateTime HoraAtual;
 
         private string _hrAtual;
-       
-        public string HrAtual { get { return _hrAtual; } set { _hrAtual = value; OnPropertyChanged("HrAtual"); } }
+        private TimeSpan? HrJornadaTotal;
+
+        public string HrAtual { get { return _hrAtual; } set { _hrAtual = value; OnPropertyChanged("HrAtual"); } }       
 
         //private TimeSpan Saldo;
 
@@ -41,25 +42,33 @@ namespace Ponto.ViewModels
             {
                 HoraAtual = DateTime.Now;
 
-                var lastPonto = _PontoRepository.GetLastPonto(usuario.Id);
-                var relatorioAtual = _RelatorioRepository.GetRelatorioAtual();
+                var lastPonto = _pontoRepository.GetLastPonto(usuario.Id);
+                var relatorioAtual = _relatorioRepository.GetRelatorioAtual();
 
                 if(relatorioAtual == null)
                 {
-                    _RelatorioRepository.InserirIdUsuario(usuario.Id);
+                    _relatorioRepository.InserirIdUsuario(usuario.Id);
                 }
 
 
                 //Validação se ponto de entrada ou saida
                 if (lastPonto == null)
                 {
-                    _PontoRepository.InsertPontoHrInicial(HoraAtual, usuario.Id, relatorioAtual.Id);
+                    _pontoRepository.InsertPontoHrInicial(HoraAtual, usuario.Id, relatorioAtual.Id); // crashou aqui na primeira vez que registra o ponto
                     await App.Current.MainPage.DisplayAlert("Registrado", "Horário inicial registrado", "OK");
+                    await Navigation.PopAsync();
                 }
                 else
                 {
-                    _PontoRepository.InsertPontoHrFinal(HoraAtual, usuario.Id, lastPonto);
+                    _pontoRepository.InsertPontoHrFinal(HoraAtual, lastPonto);
+                    var pontosDoDia = _pontoRepository.GetPontosDoDia(usuario.Id, DateTime.Now.Date);
+                    foreach (var item in pontosDoDia)
+                    {
+                        HrJornadaTotal =+ item.HrJornada;
+                    }
+                    _relatorioRepository.AtualizaHrJornada(HrJornadaTotal, relatorioAtual.Id);
                     await App.Current.MainPage.DisplayAlert("Registrado", "Horário final registrado", "OK");
+                    await Navigation.PopAsync();
                 }                               
             }
             catch (Exception ex)
@@ -72,9 +81,10 @@ namespace Ponto.ViewModels
 
         public RegistrarPontoViewModel()
         {
-            _PontoRepository = new PontoRepository();
-            _RelatorioRepository = new RelatorioRepository();
+            _pontoRepository = new PontoRepository();
+            _relatorioRepository = new RelatorioRepository();
             HrAtual = DateTime.Now.ToShortTimeString();
+            
         }
     }
 }

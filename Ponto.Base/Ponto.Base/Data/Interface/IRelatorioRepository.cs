@@ -11,5 +11,9 @@ namespace Ponto.Base.Data.Interface
         Relatorio GetRelatorioAtual();
 
         void InserirIdUsuario(Guid IdUser);
+
+        List<Relatorio> GetAllRelatorios(Guid IdUser);
+
+        void AtualizaHrJornada(TimeSpan? Jornada, Guid IdRelatorio);
     }
 }

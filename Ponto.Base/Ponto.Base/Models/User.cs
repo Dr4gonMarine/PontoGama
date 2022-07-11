@@ -19,5 +19,8 @@ namespace Ponto.Base.Models
         [Column("SENHA_USER")]
         [MaxLength(20)]
         public string Senha { get; set; }
+
+        [Column("IS_ESTAGIARIO")]
+        public bool IsEstagiario { get; set; }
     }
 }

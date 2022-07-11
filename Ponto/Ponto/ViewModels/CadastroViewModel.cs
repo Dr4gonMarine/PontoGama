@@ -39,6 +39,13 @@ namespace Ponto.ViewModels
             set { _nome = value.ToUpper(); OnPropertyChanged("Nome"); }
         }
 
+        private string _isEstagiario;
+
+        public string IsEstagiario
+        {
+            get { return _isEstagiario; }
+            set { _isEstagiario = value; OnPropertyChanged("IsEstagiario"); }
+        }
         #endregion
 
         #region -> Command <-       
@@ -52,7 +59,8 @@ namespace Ponto.ViewModels
         {
             try
             {
-                _usuarioRepository.InsertUser(Nome, Email, Senha);
+                bool estagiario = Boolean.Parse(IsEstagiario);
+                _usuarioRepository.InsertUser(Nome, Email, Senha, estagiario);
                 await Navigation.PopModalAsync();
             }
             catch (Exception ex)

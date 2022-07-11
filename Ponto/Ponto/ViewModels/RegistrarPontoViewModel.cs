@@ -21,6 +21,7 @@ namespace Ponto.ViewModels
 
         private string _hrAtual;
         private TimeSpan? HrJornadaTotal;
+        private TimeSpan? Saldo;       
 
         public string HrAtual { get { return _hrAtual; } set { _hrAtual = value; OnPropertyChanged("HrAtual"); } }       
 
@@ -55,18 +56,35 @@ namespace Ponto.ViewModels
                 if (lastPonto == null)
                 {
                     _pontoRepository.InsertPontoHrInicial(HoraAtual, usuario.Id, relatorioAtual.Id); // crashou aqui na primeira vez que registra o ponto
+
                     await App.Current.MainPage.DisplayAlert("Registrado", "Horário inicial registrado", "OK");
                     await Navigation.PopAsync();
                 }
                 else
                 {
-                    _pontoRepository.InsertPontoHrFinal(HoraAtual, lastPonto);
+                    _pontoRepository.InsertPontoHrFinal(HoraAtual, lastPonto); //Inserindo O horario final
+
+                    //Parte do relatório
                     var pontosDoDia = _pontoRepository.GetPontosDoDia(usuario.Id, DateTime.Now.Date);
+                    //Atualizando HrJornada
                     foreach (var item in pontosDoDia)
                     {
-                        HrJornadaTotal =+ item.HrJornada;
+                        HrJornadaTotal =+ item.HrJornada;                        
                     }
                     _relatorioRepository.AtualizaHrJornada(HrJornadaTotal, relatorioAtual.Id);
+                    //Atualizando Saldo -> nao esta mostrando horario negativo (ta estranho)
+                    if(usuario.IsEstagiario == true)
+                    {                       
+                       TimeSpan HrEstagio = new TimeSpan(6, 0, 0);
+                       Saldo = HrEstagio - HrJornadaTotal;
+                    }
+                    else
+                    {
+                        TimeSpan HrEfetivado = new TimeSpan(8, 0, 0);
+                        Saldo = HrEfetivado - HrJornadaTotal;
+                    }
+                    _relatorioRepository.AtualizaSaldo(Saldo, relatorioAtual.Id);
+
                     await App.Current.MainPage.DisplayAlert("Registrado", "Horário final registrado", "OK");
                     await Navigation.PopAsync();
                 }                               
@@ -76,7 +94,7 @@ namespace Ponto.ViewModels
                 await App.Current.MainPage.DisplayAlert("Ops", ex.Message, "OK");                
             }
 
-        }
+        }        
         #endregion
 
         public RegistrarPontoViewModel()

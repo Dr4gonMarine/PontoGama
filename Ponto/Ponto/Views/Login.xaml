@@ -11,7 +11,7 @@
 
     <ContentPage.Content>
         <!--Gradiente de fundo-->
-        <Grid RowDefinitions="40*, 60*">
+        <Grid RowDefinitions="35*, 65*">
             <Grid.Background>
                 <LinearGradientBrush StartPoint="0,1"
                              EndPoint="0,0">

@@ -35,6 +35,10 @@
                     <Frame Padding="0" CornerRadius="20">
                         <Entry Text="{Binding Senha}" IsPassword="True" Placeholder="Senha"/>
                     </Frame>
+                    <StackLayout Orientation="Horizontal" Margin="5">
+                        <Label Text="É estagiario?" VerticalOptions="Center"/>
+                        <CheckBox IsChecked="{Binding IsEstagiario}"/>
+                    </StackLayout>
                     <Button Text="Cadastrar" VerticalOptions="EndAndExpand" Margin="0,0,0,30" Command="{Binding CadastrarCommand}"/>
                 </StackLayout>
             </Grid>

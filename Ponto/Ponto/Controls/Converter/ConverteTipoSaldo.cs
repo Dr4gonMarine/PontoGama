@@ -10,9 +10,9 @@ namespace Ponto.Controls.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var tipoSaldo = value as string;
+            var tipoSaldo = value;
 
-            if (tipoSaldo == "True")
+            if (tipoSaldo is true)
             {
                 return "Hora Extra";
             }

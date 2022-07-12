@@ -59,7 +59,10 @@ namespace Ponto.ViewModels
         {
             try
             {
-                IsEstagiario = "false";
+                if (string.IsNullOrEmpty(IsEstagiario))
+                {
+                    IsEstagiario = "false";
+                }
                 bool estagiario = Boolean.Parse(IsEstagiario);
                 _usuarioRepository.InsertUser(Nome, Email, Senha, estagiario);
                 await Navigation.PopModalAsync();
@@ -70,7 +73,13 @@ namespace Ponto.ViewModels
                 await App.Current.MainPage.DisplayAlert("Erro", ex.Message, "OK");
             }        
         }
+        #endregion
 
+        #region ->Métodos<-
+        private void validaEmail()
+        {
+
+        }
         #endregion
 
         public CadastroViewModel()

@@ -40,5 +40,13 @@ namespace Ponto.Views
             }
 
         }
+
+        private void RelatorioSelecionado(object sender, EventArgs e)
+        {
+            var evento = (TappedEventArgs)e;
+            var relatorio = (Relatorio)evento.Parameter;
+
+            Navigation.PushAsync(new DetalhePage(relatorio),false);
+        }
     }
 }

@@ -59,6 +59,7 @@ namespace Ponto.ViewModels
         {
             try
             {
+                IsEstagiario = "false";
                 bool estagiario = Boolean.Parse(IsEstagiario);
                 _usuarioRepository.InsertUser(Nome, Email, Senha, estagiario);
                 await Navigation.PopModalAsync();

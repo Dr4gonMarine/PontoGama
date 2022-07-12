@@ -15,11 +15,11 @@ namespace Ponto.Base.Data.Repository
             DbContext = PontoContext.Current;
         }
 
-        public void AtualizaSaldo(TimeSpan? Saldo, Guid IdRelatorio)
+        public void AtualizaSaldo(TimeSpan? Saldo, Guid IdRelatorio, bool SaldoPositivo)
         {
             try
             {
-                _dbContext.Conexao.Query<Relatorio>("UPDATE RELATORIO SET SALDO = ? WHERE Id = ?", Saldo, IdRelatorio);
+                _dbContext.Conexao.Query<Relatorio>("UPDATE RELATORIO SET SALDO = ?, SALDO_POSITIVO = ? WHERE Id = ?", Saldo, SaldoPositivo, IdRelatorio);
             }
             catch (Exception ex)
             {
@@ -71,7 +71,7 @@ namespace Ponto.Base.Data.Repository
         {
             try
             {
-                Relatorio relatorioAtual = new Relatorio() { IdUser = IdUser}; //criando o relatorio
+                Relatorio relatorioAtual = new Relatorio() { IdUser = IdUser, SaldoPositivo=false}; //criando o relatorio
                 _dbContext.Conexao.Insert(relatorioAtual);
             }
             catch (Exception ex)

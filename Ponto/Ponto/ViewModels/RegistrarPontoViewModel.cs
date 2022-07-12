@@ -81,10 +81,17 @@ namespace Ponto.ViewModels
                     else
                     {
                         TimeSpan HrEfetivado = new TimeSpan(8, 0, 0);
-                        Saldo = HrEfetivado.Subtract(HrJornadaTotal.Value);
+                        Saldo = HrEfetivado.Subtract(HrJornadaTotal.Value);                        
                     }
-
-                    _relatorioRepository.AtualizaSaldo(Saldo, relatorioAtual.Id);
+                    // Esse saldo pode estar sendo salvo invertido pode ser melhorado
+                    if(Saldo.Hours > 0)
+                    {
+                        _relatorioRepository.AtualizaSaldo(Saldo, relatorioAtual.Id, false);
+                    }
+                    else
+                    {
+                        _relatorioRepository.AtualizaSaldo(Saldo, relatorioAtual.Id, true);
+                    }
 
                     await App.Current.MainPage.DisplayAlert("Registrado", "Horário final registrado", "OK");
                     await Navigation.PopAsync();

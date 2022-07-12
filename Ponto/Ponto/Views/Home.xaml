@@ -3,11 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              NavigationPage.HasNavigationBar="False"
              xmlns:views="clr-namespace:Ponto.ViewModels"
+             xmlns:conversor="clr-namespace:Ponto.Controls.Converter"
              x:Class="Ponto.Views.Home">
 
     <ContentPage.BindingContext>
         <views:HomeViewModel/>
     </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conversor:ConverteTipoSaldo x:Key="TipoSaldo"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ContentPage.Content>
         <!--Gradiente de fundo-->
@@ -62,7 +69,7 @@
                                             <!--Direita-->
 
                                             <!--<Label Text="Finalizado" Grid.Column="1"/>-->
-                                            <Label Text="Saldo:" Grid.Column="1" Grid.Row="3"/>
+                                            <Label Text="{Binding SaldoPositivo,Converter={StaticResource TipoSaldo}}" Grid.Column="1" Grid.Row="3"/>
                                             <Label Text="{Binding Saldo, StringFormat='{}{0:hh\\:mm}'}" Grid.Column="1" Grid.Row="4"/>
                                         </Grid>
                                     </Frame>

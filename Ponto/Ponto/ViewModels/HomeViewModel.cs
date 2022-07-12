@@ -26,7 +26,7 @@ namespace Ponto.ViewModels
         {
             get { return _nome; }
             set { _nome = value; OnPropertyChanged("Nome"); }
-        }
+        }        
 
         private ObservableCollection<Relatorio> _relatorioList;
         public ObservableCollection<Relatorio> RelatorioList { get { return _relatorioList; } set { _relatorioList = value; OnPropertyChanged("RelatorioList"); } }

@@ -15,6 +15,6 @@ namespace Ponto.Base.Data.Interface
         List<Relatorio> GetAllRelatorios(Guid IdUser);
 
         void AtualizaHrJornada(TimeSpan? Jornada, Guid IdRelatorio);
-        void AtualizaSaldo(TimeSpan? Saldo, Guid IdRelatorio);
+        void AtualizaSaldo(TimeSpan? Saldo, Guid IdRelatorio, bool SaldoPositivo);        
     }
 }

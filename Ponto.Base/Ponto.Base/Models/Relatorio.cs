@@ -17,5 +17,8 @@ namespace Ponto.Base.Models
 
         [Column("ID_USER")]
         public Guid IdUser { get; set; }
+
+        [Column("SALDO_POSITIVO")]
+        public bool SaldoPositivo { get; set; }
     }
 }

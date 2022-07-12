@@ -20,12 +20,10 @@ namespace Ponto.ViewModels
         private DateTime HoraAtual;
 
         private string _hrAtual;
-        private TimeSpan? HrJornadaTotal;
-        private TimeSpan? Saldo;       
+        private TimeSpan? HrJornadaTotal = new TimeSpan(0, 0, 0);
+        private TimeSpan Saldo = new TimeSpan(0, 0, 0);
 
-        public string HrAtual { get { return _hrAtual; } set { _hrAtual = value; OnPropertyChanged("HrAtual"); } }       
-
-        //private TimeSpan Saldo;
+        public string HrAtual { get { return _hrAtual; } set { _hrAtual = value; OnPropertyChanged("HrAtual"); } }
 
         #endregion
 
@@ -46,55 +44,58 @@ namespace Ponto.ViewModels
                 var lastPonto = _pontoRepository.GetLastPonto(usuario.Id);
                 var relatorioAtual = _relatorioRepository.GetRelatorioAtual();
 
-                if(relatorioAtual == null)
+                if (relatorioAtual == null)
                 {
                     _relatorioRepository.InserirIdUsuario(usuario.Id);
+                    relatorioAtual = _relatorioRepository.GetRelatorioAtual();
                 }
 
 
                 //Validação se ponto de entrada ou saida
                 if (lastPonto == null)
                 {
-                    _pontoRepository.InsertPontoHrInicial(HoraAtual, usuario.Id, relatorioAtual.Id); // crashou aqui na primeira vez que registra o ponto
+                    _pontoRepository.InsertPontoHrInicial(HoraAtual, usuario.Id, relatorioAtual.Id);
 
                     await App.Current.MainPage.DisplayAlert("Registrado", "Horário inicial registrado", "OK");
                     await Navigation.PopAsync();
                 }
                 else
                 {
-                    _pontoRepository.InsertPontoHrFinal(HoraAtual, lastPonto); //Inserindo O horario final
+                    _pontoRepository.InsertPontoHrFinal(HoraAtual, lastPonto); //Inserindo o horario final
 
                     //Parte do relatório
                     var pontosDoDia = _pontoRepository.GetPontosDoDia(usuario.Id, DateTime.Now.Date);
                     //Atualizando HrJornada
                     foreach (var item in pontosDoDia)
                     {
-                        HrJornadaTotal =+ item.HrJornada;                        
+                        HrJornadaTotal += item.HrJornada;
                     }
                     _relatorioRepository.AtualizaHrJornada(HrJornadaTotal, relatorioAtual.Id);
-                    //Atualizando Saldo -> nao esta mostrando horario negativo (ta estranho)
-                    if(usuario.IsEstagiario == true)
-                    {                       
-                       TimeSpan HrEstagio = new TimeSpan(6, 0, 0);
-                       Saldo = HrEstagio - HrJornadaTotal;
+
+                    //Atualizando Saldo
+                    if (usuario.IsEstagiario == true)
+                    {
+                        TimeSpan HrEstagio = new TimeSpan(6, 0, 0);
+                        Saldo = HrEstagio.Subtract(HrJornadaTotal.Value);
                     }
                     else
                     {
                         TimeSpan HrEfetivado = new TimeSpan(8, 0, 0);
-                        Saldo = HrEfetivado - HrJornadaTotal;
+                        Saldo = HrEfetivado.Subtract(HrJornadaTotal.Value);
                     }
+
                     _relatorioRepository.AtualizaSaldo(Saldo, relatorioAtual.Id);
 
                     await App.Current.MainPage.DisplayAlert("Registrado", "Horário final registrado", "OK");
                     await Navigation.PopAsync();
-                }                               
+                }
             }
             catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("Ops", ex.Message, "OK");                
+                await App.Current.MainPage.DisplayAlert("Ops", ex.Message, "OK");
             }
 
-        }        
+        }
         #endregion
 
         public RegistrarPontoViewModel()
@@ -102,7 +103,6 @@ namespace Ponto.ViewModels
             _pontoRepository = new PontoRepository();
             _relatorioRepository = new RelatorioRepository();
             HrAtual = DateTime.Now.ToShortTimeString();
-            
         }
     }
 }

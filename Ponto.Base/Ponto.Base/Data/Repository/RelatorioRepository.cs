@@ -45,7 +45,7 @@ namespace Ponto.Base.Data.Repository
         {
             try
             {
-                return _dbContext.Conexao.Query<Relatorio>("SELECT * FROM RELATORIO WHERE ID_USER = ?", IdUser);
+                return _dbContext.Conexao.Query<Relatorio>("SELECT * FROM RELATORIO WHERE ID_USER = ? ORDER BY Inclusao DESC", IdUser);
             }
             catch (Exception ex)
             {

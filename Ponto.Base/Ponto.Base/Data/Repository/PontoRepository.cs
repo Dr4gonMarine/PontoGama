@@ -33,7 +33,7 @@ namespace Ponto.Base.Data.Repository
             {
                 var Jornada = HoraAtual-lastPonto.HrInicio;
                 
-                _dbContext.Conexao.Query<Models.Ponto>("UPDATE PONTO SET HR_FINAL = ?, HR_JORNADA = ? WHERE ID_USER = ?", HoraAtual, Jornada, lastPonto.IdUser);
+                _dbContext.Conexao.Query<Models.Ponto>("UPDATE PONTO SET HR_FINAL = ?, HR_JORNADA = ? WHERE Id = ?", HoraAtual, Jornada, lastPonto.Id);
             }
             catch (Exception ex)
             {

@@ -52,7 +52,7 @@ namespace Ponto.ViewModels
             {
                 _listaGeral = _relatorioRepository.GetAllRelatorios(usuario.Id);
 
-                RelatorioList = new ObservableCollection<Relatorio>(_listaGeral); 
+                RelatorioList = new ObservableCollection<Relatorio>(_listaGeral);
 
             }
             catch (Exception ex)

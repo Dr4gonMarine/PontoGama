@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 
 namespace Ponto.ViewModels
 {
@@ -14,7 +16,9 @@ namespace Ponto.ViewModels
         public INavigation Navigation;
         private PontoRepository _pontoRepository;
         private RelatorioRepository _relatorioRepository;
+        public Xamarin.Forms.Maps.Map mapa;
 
+        public Location location { get; set; }
         public User usuario;
 
         private DateTime HoraAtual;
@@ -89,10 +93,10 @@ namespace Ponto.ViewModels
                     else
                     {
                         TimeSpan HrEfetivado = new TimeSpan(8, 0, 0);
-                        Saldo = HrEfetivado.Subtract(HrJornadaTotal.Value);                        
+                        Saldo = HrEfetivado.Subtract(HrJornadaTotal.Value);
                     }
                     // Esse saldo pode estar sendo salvo invertido pode ser melhorado
-                    if(Saldo.Hours > 0)
+                    if (Saldo.Hours > 0)
                     {
                         _relatorioRepository.AtualizaSaldo(Saldo, relatorioAtual.Id, false);
                     }
@@ -111,6 +115,10 @@ namespace Ponto.ViewModels
             }
 
         }
+        public async Task CarregaDados()
+        {
+            location = await Geolocation.GetLastKnownLocationAsync();            
+        }
         #endregion
 
         public RegistrarPontoViewModel()
@@ -118,6 +126,7 @@ namespace Ponto.ViewModels
             _pontoRepository = new PontoRepository();
             _relatorioRepository = new RelatorioRepository();
             HrAtual = DateTime.Now.ToShortTimeString();
+            CarregaDados();
         }
     }
 }

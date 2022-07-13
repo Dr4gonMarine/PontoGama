@@ -2,21 +2,23 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:Ponto.ViewModels"       
-             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasNavigationBar="False"             
              x:Class="Ponto.Views.RegistrarPontoPage">
 
     <ContentPage.BindingContext>
         <viewmodel:RegistrarPontoViewModel/>
     </ContentPage.BindingContext>
-    
+
     <ContentPage.Content>
-        <StackLayout>
-            <Frame BackgroundColor="CadetBlue" Padding="5">
-                <Grid ColumnDefinitions="50" RowDefinitions="50" >
+
+        <Grid RowSpacing="0" RowDefinitions="8*,65*,25*">
+            <StackLayout Grid.Row="0" Grid.RowSpan="2" x:Name="MapContainer" VerticalOptions="Fill" HorizontalOptions="Fill" Margin="0" Padding="0"/>
+            <Frame Grid.Row="0" BackgroundColor="Transparent" Padding="0" Margin="10,10,0,0">
+                <Grid ColumnDefinitions="50" RowDefinitions="50" BackgroundColor="Transparent" >
                     <Button Text="&#xf359;" Command="{Binding BackCommand}" FontFamily="FontAwesome" FontSize="27" CornerRadius="50"/>
                 </Grid>
             </Frame>
-            <Frame VerticalOptions="EndAndExpand">
+            <Frame Grid.Row="2" VerticalOptions="FillAndExpand" Margin="0">
                 <StackLayout>
                     <Label Text="Horário" Style="{StaticResource LblDetalhe}" HorizontalOptions="Center"/>
                     <Label Text="{Binding HrAtual}" Style="{StaticResource LblTitulo}"/>
@@ -27,7 +29,7 @@
                     <Button Text="Registrar Ponto" Command="{Binding RegistrarPonto}"/>
                 </StackLayout>
             </Frame>
-           
-        </StackLayout>
+        </Grid>
+
     </ContentPage.Content>
 </ContentPage>

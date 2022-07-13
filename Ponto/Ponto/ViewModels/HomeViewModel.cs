@@ -41,7 +41,7 @@ namespace Ponto.ViewModels
         #region -> Métodos <-
         private async Task Registrar()
         {
-            await Navigation.PushAsync(new RegistrarPontoPage(usuario) { BackgroundColor = Color.Aquamarine});
+            await Navigation.PushAsync(new RegistrarPontoPage(usuario));
         }
         public void CarregaDados()
         {

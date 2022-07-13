@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:Ponto.ViewModels"
+             NavigationPage.HasNavigationBar="False"
              x:Class="Ponto.Views.DetalhePage">
 
     <ContentPage.BindingContext>
@@ -13,7 +14,7 @@
             <Style TargetType="Label">
                 <Setter Property="HorizontalTextAlignment" Value="Center"/>
             </Style>
-            <Style TargetType="Frame">
+            <Style TargetType="Frame" x:Key="Detalhes">
                 <Setter Property="BorderColor" Value="LightGray"/>
                 <Setter Property="HasShadow" Value="False"/>
             </Style>
@@ -21,66 +22,75 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <Grid RowDefinitions="22*, 78*">
-            <Grid.Background>
-                <LinearGradientBrush StartPoint="0,1"
-                             EndPoint="0,0">
-                    <GradientStop Color="White"
-                          Offset="0.2"/>
-                    <GradientStop Color="CadetBlue"
-                          Offset="1.0"/>
-                </LinearGradientBrush>
-            </Grid.Background>
+        <StackLayout Spacing="0">
 
-            <!--Frame Total-->
-            <Frame Margin="20" CornerRadius="30">
-                <StackLayout>
-                    <Label >
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Relatorio do dia: "/>
-                                <Span Text="{Binding DiaRelatorio,StringFormat='{}{0:dd\\/MM\\/yyyy}'}"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <BoxView Color="Gray" HeightRequest="1"/>
-
-                    <Label Text="Tempo de jornada total: "/>
-                    <Label Text="{Binding HoraJornadaTotal, StringFormat='{}{0:hh\\:mm\\:ss}'}"/>
-                </StackLayout>
+            <Frame BackgroundColor="CadetBlue" Padding="5" HasShadow="False">
+                <Grid ColumnDefinitions="50" RowDefinitions="50" >
+                    <Button Text="&#xf359;" Command="{Binding BackCommand}" FontFamily="FontAwesome" FontSize="27" CornerRadius="50"/>
+                </Grid>
             </Frame>
 
-            <!--"frame" branco-->
-            <BoxView CornerRadius="30,30,0,0" Grid.Row="1" BackgroundColor="White" Margin="20,0,20,0"/>
+            <Grid RowDefinitions="22*, 78*">
+                <Grid.Background>
+                    <LinearGradientBrush StartPoint="0,1"
+                             EndPoint="0,0">
+                        <GradientStop Color="White"
+                          Offset="0.2"/>
+                        <GradientStop Color="CadetBlue"
+                          Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+
+                <!--Frame Total-->
+                <Frame Margin="20" CornerRadius="30" Style="{StaticResource Detalhes}">
+                    <StackLayout>
+                        <Label >
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Relatorio do dia: "/>
+                                    <Span Text="{Binding DiaRelatorio,StringFormat='{}{0:dd\\/MM\\/yyyy}'}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <BoxView Color="Gray" HeightRequest="1"/>
+
+                        <Label Text="Tempo de jornada total: "/>
+                        <Label Text="{Binding HoraJornadaTotal, StringFormat='{}{0:hh\\:mm\\:ss}'}"/>
+                    </StackLayout>
+                </Frame>
+
+                <!--"frame" branco-->
+                <BoxView CornerRadius="30,30,0,0" Grid.Row="1" BackgroundColor="White" Margin="20,0,20,0"/>
 
 
-            <Grid Grid.Row="1" RowDefinitions="auto" ColumnDefinitions="40,*,40">
-                <StackLayout Grid.Row="1" Grid.Column="1">
-                    <CollectionView ItemsSource="{Binding PontoList}" Margin="0,10,0,0">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <ContentView>
-                                    <Frame CornerRadius="30" Margin="5">
-                                        <Grid ColumnDefinitions="50*,40*" RowDefinitions="auto,1, auto ,auto, auto">
-                                            <BoxView Color="Gray" HeightRequest="1" Grid.ColumnSpan="2" Grid.Row="1"/>
+                <Grid Grid.Row="1" RowDefinitions="auto" ColumnDefinitions="40,*,40">
+                    <StackLayout Grid.Row="1" Grid.Column="1">
+                        <CollectionView ItemsSource="{Binding PontoList}" Margin="0,10,0,0">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentView>
+                                        <Frame CornerRadius="30" Margin="5" Style="{StaticResource Detalhes}">
+                                            <Grid ColumnDefinitions="50*,40*" RowDefinitions="auto,1, auto ,auto, auto">
+                                                <BoxView Color="Gray" HeightRequest="1" Grid.ColumnSpan="2" Grid.Row="1"/>
 
-                                            <!--Esquerda-->
-                                            <Label Text="Tempo de Jornada:"/>
-                                            <Label Text="Horário de entrada:"  Grid.Row="2"/>
-                                            <Label Text="{Binding HrInicio, StringFormat='{}{0:HH\\:mm}'}" Grid.Row="3"/>
+                                                <!--Esquerda-->
+                                                <Label Text="Tempo de Jornada:"/>
+                                                <Label Text="Horário de entrada:"  Grid.Row="2"/>
+                                                <Label Text="{Binding HrInicio, StringFormat='{}{0:HH\\:mm}'}" Grid.Row="3"/>
 
-                                            <!--Direita-->
-                                            <Label Text="{Binding HrJornada, StringFormat='{}{0:hh\\:mm\\:ss}'}" Grid.Column="1"/>
-                                            <Label Text="Horário de saída:" Grid.Column="1" Grid.Row="2"/>
-                                            <Label Text="{Binding HrFinal, StringFormat='{}{0:HH\\:mm}'}" Grid.Column="1" Grid.Row="3"/>
-                                        </Grid>
-                                    </Frame>
-                                </ContentView>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </StackLayout>
+                                                <!--Direita-->
+                                                <Label Text="{Binding HrJornada, StringFormat='{}{0:hh\\:mm\\:ss}'}" Grid.Column="1"/>
+                                                <Label Text="Horário de saída:" Grid.Column="1" Grid.Row="2"/>
+                                                <Label Text="{Binding HrFinal, StringFormat='{}{0:HH\\:mm}'}" Grid.Column="1" Grid.Row="3"/>
+                                            </Grid>
+                                        </Frame>
+                                    </ContentView>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </Grid>
             </Grid>
-        </Grid>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

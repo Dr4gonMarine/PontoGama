@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Font_Awesome_Regular.otf" />
     <None Remove="Resources\Montserrat-Bold.ttf" />
     <None Remove="Resources\Montserrat-Light.ttf" />
     <None Remove="Resources\Montserrat-Regular.ttf" />
@@ -29,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Font_Awesome_Regular.otf" />
     <EmbeddedResource Include="Resources\Montserrat-Bold.ttf" />
     <EmbeddedResource Include="Resources\Montserrat-Light.ttf" />
     <EmbeddedResource Include="Resources\Montserrat-Regular.ttf" />

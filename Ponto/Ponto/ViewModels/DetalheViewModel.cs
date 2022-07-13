@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Ponto.ViewModels
@@ -38,7 +39,18 @@ namespace Ponto.ViewModels
 
         #endregion
 
+
         #region -> Command <-       
+        private Command _BackCommand;
+        public Command BackCommand => _BackCommand ?? (_BackCommand = new Command(async () => await Voltar()));
+        #endregion
+
+        #region ->Métodos<-
+
+        private async Task Voltar()
+        {
+            await Navigation.PopAsync();
+        }
 
         public void CarregaDados()
         {
@@ -57,7 +69,9 @@ namespace Ponto.ViewModels
                 App.Current.MainPage.DisplayAlert("Ops", ex.Message, "OK");
             }
         }
+
         #endregion
+        
         public DetalheViewModel()
         {
             _pontoRepository = new PontoRepository();

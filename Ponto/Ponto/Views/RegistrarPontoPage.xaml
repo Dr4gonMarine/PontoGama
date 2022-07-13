@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodel="clr-namespace:Ponto.ViewModels"             
+             xmlns:viewmodel="clr-namespace:Ponto.ViewModels"       
+             NavigationPage.HasNavigationBar="False"
              x:Class="Ponto.Views.RegistrarPontoPage">
 
     <ContentPage.BindingContext>
@@ -10,14 +11,18 @@
     
     <ContentPage.Content>
         <StackLayout>
-
+            <Frame BackgroundColor="CadetBlue" Padding="5">
+                <Grid ColumnDefinitions="50" RowDefinitions="50" >
+                    <Button Text="&#xf359;" Command="{Binding BackCommand}" FontFamily="FontAwesome" FontSize="27" CornerRadius="50"/>
+                </Grid>
+            </Frame>
             <Frame VerticalOptions="EndAndExpand">
                 <StackLayout>
                     <Label Text="Horário" Style="{StaticResource LblDetalhe}" HorizontalOptions="Center"/>
                     <Label Text="{Binding HrAtual}" Style="{StaticResource LblTitulo}"/>
 
                     <BoxView HeightRequest="1" Color="Gray"/>
-                    <Label Text="Teste teste"/>
+                    <Label Text="O valor acima será o horário que será registrado" HorizontalTextAlignment="Center"/>
 
                     <Button Text="Registrar Ponto" Command="{Binding RegistrarPonto}"/>
                 </StackLayout>

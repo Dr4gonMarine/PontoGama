@@ -31,10 +31,18 @@ namespace Ponto.ViewModels
         private Command _RegistrarPontoCommand;
         public Command RegistrarPonto => _RegistrarPontoCommand ?? (_RegistrarPontoCommand = new Command(async () => await Registrar()));
 
+        private Command _BackCommand;
+        public Command BackCommand => _BackCommand ?? (_BackCommand = new Command(async () => await Voltar()));
+
+
 
         #endregion
 
         #region ->Métodos<-
+        private async Task Voltar()
+        {
+            await Navigation.PopAsync();
+        }
         private async Task Registrar()
         {
             try

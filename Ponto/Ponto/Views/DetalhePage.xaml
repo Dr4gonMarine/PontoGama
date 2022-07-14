@@ -41,9 +41,9 @@
                     </LinearGradientBrush>
                 </Grid.Background>
 
-                <!--Frame Total-->
+                <!--Frame Superior-->
                 <Frame Margin="20" CornerRadius="30" Style="{StaticResource Detalhes}">
-                    <StackLayout>
+                    <StackLayout Margin="10,0,0,0">
                         <Label >
                             <Label.FormattedText>
                                 <FormattedString>

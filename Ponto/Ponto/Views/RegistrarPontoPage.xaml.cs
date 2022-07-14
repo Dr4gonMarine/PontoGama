@@ -15,34 +15,23 @@ namespace Ponto.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RegistrarPontoPage : ContentPage
     {
-        RegistrarPontoViewModel _RegistrarPontoViewModel;
+        RegistrarPontoViewModel _RegistrarPontoViewModel;        
         public RegistrarPontoPage(User usuario)
-        {
-            InitializeComponent();
-            _RegistrarPontoViewModel = BindingContext as RegistrarPontoViewModel;            
-            _RegistrarPontoViewModel.Navigation = Navigation;
-            _RegistrarPontoViewModel.usuario = usuario;
-            var mapa = new Xamarin.Forms.Maps.Map(MapSpan.FromCenterAndRadius(new Position(_RegistrarPontoViewModel.location.Latitude, _RegistrarPontoViewModel.location.Longitude), Distance.FromKilometers(1)));
-
-            var Gama = new Pin { Position = new Position(_RegistrarPontoViewModel.location.Latitude, _RegistrarPontoViewModel.location.Longitude), Label = "Sua posição", Address = "Rua lá" };
-
-            mapa.Pins.Add(Gama);
-
-            MapContainer.Children.Add(mapa);
-        }
-
-        protected override void OnAppearing()
         {
             try
             {
-                base.OnAppearing();
-             
+                InitializeComponent();
+                _RegistrarPontoViewModel = BindingContext as RegistrarPontoViewModel;
+                _RegistrarPontoViewModel.Navigation = Navigation;
+                _RegistrarPontoViewModel.usuario = usuario;
+                _RegistrarPontoViewModel.CarregaMapa().GetAwaiter();
+                if(_RegistrarPontoViewModel.mapa != null)
+                    MapContainer.Children.Add(_RegistrarPontoViewModel.mapa);
             }
             catch (Exception ex)
             {
-                App.Current.MainPage.DisplayAlert("Atenção", ex.Message, "OK");
+                App.Current.MainPage.DisplayAlert("OPS", ex.Message, "OK");
             }
-
-        }
+        }       
     }
 }

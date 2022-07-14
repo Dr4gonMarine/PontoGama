@@ -26,7 +26,7 @@ namespace Ponto.ViewModels
         {
             get { return _nome; }
             set { _nome = value; OnPropertyChanged("Nome"); }
-        }                
+        }
         private ObservableCollection<Relatorio> _relatorioList;
         public ObservableCollection<Relatorio> RelatorioList { get { return _relatorioList; } set { _relatorioList = value; OnPropertyChanged("RelatorioList"); } }
 
@@ -35,13 +35,23 @@ namespace Ponto.ViewModels
         #region -> Command <-       
 
         private Command _RegistrarPontoCommand;
-        public Command RegistrarPonto => _RegistrarPontoCommand ?? (_RegistrarPontoCommand = new Command(async () => await Registrar()));        
+        public Command RegistrarPonto => _RegistrarPontoCommand ?? (_RegistrarPontoCommand = new Command(async () => await Registrar()));
         #endregion
 
         #region -> Métodos <-
         private async Task Registrar()
         {
-            await Navigation.PushAsync(new RegistrarPontoPage(usuario));
+            try
+            {
+                await Navigation.PushAsync(new RegistrarPontoPage(usuario));
+
+            }
+            catch (Exception ex)
+            {
+
+                await App.Current.MainPage.DisplayAlert("Ops", ex.Message, "OK");
+            }
+
         }
         public void CarregaDados()
         {

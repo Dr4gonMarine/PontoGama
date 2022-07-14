@@ -19,6 +19,8 @@ namespace Ponto.ViewModels
         public Xamarin.Forms.Maps.Map mapa;
 
         public Location location { get; set; }
+        public Pin posicaoAtual { get; set; }
+
         public User usuario;
 
         private DateTime HoraAtual;
@@ -115,9 +117,38 @@ namespace Ponto.ViewModels
             }
 
         }
-        public async Task CarregaDados()
+        public async Task CarregaMapa()
         {
-            location = await Geolocation.GetLastKnownLocationAsync();            
+            try
+            {
+                location = await Geolocation.GetLastKnownLocationAsync();
+
+                if (location == null)
+                {
+                    location = await Geolocation.GetLocationAsync(new GeolocationRequest
+                    {
+                        DesiredAccuracy = GeolocationAccuracy.Medium,
+                        Timeout = TimeSpan.FromSeconds(15)
+                    });
+                    await App.Current.MainPage.DisplayAlert("Ops", "Erro ao carregar o mapa e pegar sua localização", "OK");
+                }
+                if(location != null)
+                {
+                   await CriaMapa();
+                }
+            }
+            catch (Exception)
+            {
+                await App.Current.MainPage.DisplayAlert("Ops", "Erro ao carregar o mapa e pegar sua localização", "OK");                                        
+            }
+        }
+        private async Task CriaMapa()
+        {
+            mapa = new Xamarin.Forms.Maps.Map(MapSpan.FromCenterAndRadius(new Position(location.Latitude, location.Longitude), Distance.FromKilometers(1)));
+            var posicaoAtual = new Pin { Position = new Position(location.Latitude, location.Longitude), Label = "Sua posição" };
+            var posicaoGama = new Pin { Position = new Position(-22.3323080162713, -49.053455046406356), Label = "Gama", Address = "R. dos Rádio-Amadores, 4-35 - Jardim Brasil, Bauru - SP, 17011-090" };
+            mapa.Pins.Add(posicaoAtual);
+            mapa.Pins.Add(posicaoGama);
         }
         #endregion
 
@@ -126,7 +157,7 @@ namespace Ponto.ViewModels
             _pontoRepository = new PontoRepository();
             _relatorioRepository = new RelatorioRepository();
             HrAtual = DateTime.Now.ToShortTimeString();
-            CarregaDados();
+            //CarregaDados();
         }
     }
 }

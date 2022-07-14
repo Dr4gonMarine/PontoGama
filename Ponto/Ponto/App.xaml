@@ -4,10 +4,6 @@
              x:Class="Ponto.App">
     <Application.Resources>
 
-        <Style TargetType="Label" >
-            <Setter Property="TextColor" Value="Black"/>
-            <Setter Property="FontFamily" Value="MontserratRegular"/>
-        </Style>
 
         <Style TargetType="Entry">
             <Setter Property="PlaceholderColor" Value="Black"/>
@@ -20,6 +16,13 @@
             <Setter Property="TextColor" Value="White"/>
         </Style>
 
+        
+        <!--Labels-->
+        <Style TargetType="Label" >
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontFamily" Value="MontserratRegular"/>
+        </Style>
+        
         <Style TargetType="Label" x:Key="LblTitulo">
             <Setter Property="FontSize" Value="40"/>
             <Setter Property="TextColor" Value="CadetBlue"/>
@@ -29,6 +32,10 @@
         <Style TargetType="Label" x:Key="LblDetalhe">
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="FontFamily" Value="MontserratLight"/>
+        </Style>
+
+        <Style TargetType="Label" x:Key="LblDestaque">
+            <Setter Property="FontFamily" Value="MontserratBold"/>
         </Style>
 
     </Application.Resources>

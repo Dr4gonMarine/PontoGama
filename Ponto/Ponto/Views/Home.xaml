@@ -40,7 +40,7 @@
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="Seja bem vindo "/>
-                                <Span Text="{Binding Nome}"/>
+                                <Span Text="{Binding Nome}" Style="{StaticResource LblDestaque}"/>
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
@@ -67,7 +67,7 @@
                                             <BoxView Color="Gray" HeightRequest="1" Grid.ColumnSpan="2" Grid.Row="1"/>
 
                                             <!--Superior-->
-                                            <Label Grid.ColumnSpan="2" HorizontalOptions="Center">
+                                            <Label Grid.ColumnSpan="2" HorizontalOptions="Center" Style="{StaticResource LblDestaque}">
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span Text="{Binding Inclusao, StringFormat='{}{0:dddd}'}"/>
@@ -78,14 +78,14 @@
                                             </Label>
                                             
                                             <!--Esquerda-->
-                                            <Label Text="Tempo de Jornada:" Grid.Row="3"/>
-                                            <Label Text="{Binding HrJornada, StringFormat='{}{0:hh\\:mm}'}" Grid.Row="4"/>
+                                            <Label Text="Tempo de Jornada:" Grid.Row="3" HorizontalTextAlignment="Center"/>
+                                            <Label Text="{Binding HrJornada, StringFormat='{}{0:hh\\:mm}'}" Grid.Row="4" Style="{StaticResource LblDestaque}" HorizontalTextAlignment="Center"/>
 
                                             <!--Direita-->
 
                                             <!--<Label Text="Finalizado" Grid.Column="1"/>-->
-                                            <Label Text="{Binding SaldoPositivo,Converter={StaticResource TipoSaldo}}" Grid.Column="1" Grid.Row="3"/>
-                                            <Label Text="{Binding Saldo, StringFormat='{}{0:hh\\:mm}'}" Grid.Column="1" Grid.Row="4"/>
+                                            <Label Text="{Binding SaldoPositivo,Converter={StaticResource TipoSaldo}}" Grid.Column="1" Grid.Row="3" />
+                                            <Label Text="{Binding Saldo, StringFormat='{}{0:hh\\:mm}'}" Grid.Column="1" Grid.Row="4" Style="{StaticResource LblDestaque}" HorizontalTextAlignment="Center"/>
                                         </Grid>
                                     </Frame>
                                 </ContentView>

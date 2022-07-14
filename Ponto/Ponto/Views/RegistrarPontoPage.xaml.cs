@@ -24,7 +24,7 @@ namespace Ponto.Views
                 _RegistrarPontoViewModel = BindingContext as RegistrarPontoViewModel;
                 _RegistrarPontoViewModel.Navigation = Navigation;
                 _RegistrarPontoViewModel.usuario = usuario;
-                _RegistrarPontoViewModel.CarregaMapa().GetAwaiter();
+                _RegistrarPontoViewModel.CarregaMapa();
                 if(_RegistrarPontoViewModel.mapa != null)
                     MapContainer.Children.Add(_RegistrarPontoViewModel.mapa);
             }

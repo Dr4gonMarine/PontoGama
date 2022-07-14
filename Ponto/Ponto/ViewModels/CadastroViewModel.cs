@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Ponto.Controls.Validations;
 
 namespace Ponto.ViewModels
 {
     public class CadastroViewModel : BaseViewModel
     {
-        #region Propriedades       
-        
+        #region ->Propriedades<-       
+
         public INavigation Navigation { get; set; }
 
         private UserRepository _usuarioRepository;
@@ -59,27 +60,31 @@ namespace Ponto.ViewModels
         {
             try
             {
-                if (string.IsNullOrEmpty(IsEstagiario))
+                if (ValidaEntry.ValidaEntryEmail(Email) && ValidaEntry.ValidaSenha(Senha) && ValidaEntry.ValidaNome(Nome))
                 {
-                    IsEstagiario = "false";
+                    if (string.IsNullOrEmpty(IsEstagiario))
+                    {
+                        IsEstagiario = "false";
+                    }
+                    bool estagiario = Boolean.Parse(IsEstagiario);
+                    _usuarioRepository.InsertUser(Nome, Email, Senha, estagiario);
+                    await Navigation.PopModalAsync();
                 }
-                bool estagiario = Boolean.Parse(IsEstagiario);
-                _usuarioRepository.InsertUser(Nome, Email, Senha, estagiario);
-                await Navigation.PopModalAsync();
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("Cuidado", "Email e Senha não são validos", "OK");
+                }
             }
             catch (Exception ex)
             {
 
                 await App.Current.MainPage.DisplayAlert("Erro", ex.Message, "OK");
-            }        
+            }
         }
         #endregion
 
         #region ->Métodos<-
-        private void validaEmail()
-        {
 
-        }
         #endregion
 
         public CadastroViewModel()

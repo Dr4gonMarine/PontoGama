@@ -55,7 +55,7 @@
                         <BoxView Color="Gray" HeightRequest="1"/>
 
                         <Label Text="Tempo de jornada total: "/>
-                        <Label Text="{Binding HoraJornadaTotal, StringFormat='{}{0:hh\\:mm\\:ss}'}" Style="{StaticResource LblDestaque}"/>
+                        <Label Text="{Binding HoraJornadaTotal, StringFormat='{}{0:hh\\:mm\\:ss}'}" Style="{StaticResource LblDestaque}" HorizontalTextAlignment="Center"/>
                     </StackLayout>
                 </Frame>
 

@@ -66,7 +66,7 @@ namespace Ponto.ViewModels
         {
             try
             {
-                HoraAtual = DateTime.Now;
+                HoraAtual = DateTime.Now;//corrigir aqui
 
                 var lastPonto = _pontoRepository.GetLastPonto(usuario.Id);
                 var relatorioAtual = _relatorioRepository.GetRelatorioAtual();
@@ -130,7 +130,7 @@ namespace Ponto.ViewModels
             }
 
         }
-        public async void CarregaMapa()
+        public async Task CarregaMapa()
         {
             try
             {
@@ -146,7 +146,7 @@ namespace Ponto.ViewModels
                 }
                 if(location != null)
                 {
-                    CriaMapa();
+                   CriaMapa();
                 }
             }
             catch (Exception)

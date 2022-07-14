@@ -1,5 +1,6 @@
 ﻿using Ponto.Base.Data.Repository;
 using Ponto.Base.Models;
+using Ponto.Controls.Validations;
 using Ponto.Views;
 using System;
 using System.Collections.Generic;
@@ -44,29 +45,37 @@ namespace Ponto.ViewModels
         #region -> Métodos <-
         private async Task Cadastrar()
         {
-            await Navigation.PushModalAsync(new Cadastro(),false);            
+            await Navigation.PushModalAsync(new Cadastro(), false);
         }
         private async Task ValidaLogin()
         {
             try
             {
-                var usuario = _usuarioRepository.GetByEmail(Email);                
-                if (usuario != null)
+                if (ValidaEntry.ValidaEntryEmail(Email) && ValidaEntry.ValidaSenha(Senha))
                 {
-                    if(usuario.Senha == Senha)
+
+                    var usuario = _usuarioRepository.GetByEmail(Email);
+                    if (usuario != null)
                     {
-                        Application.Current.MainPage = new NavigationPage(new Home(usuario));
+                        if (usuario.Senha == Senha)
+                        {
+                            Application.Current.MainPage = new NavigationPage(new Home(usuario));
+                        }
+                        else
+                        {
+                            await App.Current.MainPage.DisplayAlert("Ops", "Senha Incorreta", "OK");
+                        }
                     }
                     else
                     {
-                        await App.Current.MainPage.DisplayAlert("Ops", "Senha Incorreta", "OK");
+                        await App.Current.MainPage.DisplayAlert("Ops", "Usuário não encontrado", "OK");
                     }
                 }
                 else
                 {
-                    await App.Current.MainPage.DisplayAlert("Ops", "Usuário não encontrado", "OK");
+                    await App.Current.MainPage.DisplayAlert("Cuidado", "Email e Senha não são validos", "OK");
                 }
-            
+
             }
             catch (Exception ex)
             {
@@ -78,9 +87,9 @@ namespace Ponto.ViewModels
 
         #region -> Construtor <-
         public LoginViewModel()
-        {            
+        {
             _usuarioRepository = new UserRepository();
-        }       
+        }
         #endregion
     }
 }
